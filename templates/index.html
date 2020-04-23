@@ -1,11 +1,41 @@
 {% extends 'base.html' %}
 
-{% block body %}
-    {{super()}}
-    <div style = "position:absolute; left:50%; top:40%; color: aliceblue;">
-        <h1 style="font-size: 500%;">JellyFish Forecast<h1>
-        <p style="font-size: 60%;">Predicción de medusas</p>
-        <p style="font-size: 60%;">Pablo Santidrian Tudanca</p>
+{% block styles %}
+{{ super() }}
+<style>
+    
+    .container{
+        height: 70%;
+    }
+    .row {
+        position: absolute;
+        left: 40%;
+        top: 50%;
+        margin: 5px;
+    }
+    .col-sm{
+        width: 80%;
+        /* padding: 5%;
+        box-sizing: border-box; */
+    }
+    @media only screen and (max-width: 700px) {
+        .row {
+            position: absolute;
+            left: 0%;
+            top: 50%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <div class = "container" >
+        <div class="row">
+            <div class="col-sm">
+                <h1>Jellyfish Forescast</h1>
+                <h3>Servicio de predicción sobre la aparción de medusas en las costas de Chile.</h3>
+            </div>
+        </div>
     </div>
     
 {% endblock %}

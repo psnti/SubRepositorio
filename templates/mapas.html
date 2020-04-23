@@ -1,38 +1,107 @@
 {% extends 'base.html' %}
 
 {% block styles %}
-{{super()}}
+{{ super() }}
+<link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 <style>
- body, html { height:100%;
-	margin:0;
-	padding:0;
-	width:100%;
-	background-color:silver;
-}
- 
-.recuadro {
-	width:49.5%;
-	display:inline-block;
-	height:85%;
-	overflow:hidden;
-}
-</style>
+    .container {
+        height: 90% !important;
+        padding-top: 1%;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
 
+    .row {
+        height: 100% !important;
+        width: 100% !important;
+        padding: 0px;
+        margin-right: 0px;
+        margin-left: 0px;
+        top: 90px !important;
+    }
+
+    .formulario {
+        position: absolute;
+        background-color: whitesmoke;
+        padding: 10px;
+        width: 90%;
+        height: 230px;
+    }
+
+    .formulario.fecha {
+        top: 30px;
+
+    }
+
+    .formulario.resultados {
+        top: 300px;
+
+    }
+
+    .gj-textbox-md {
+        background-color: white;
+    }
+
+    h5,
+    button {
+        color: black;
+        margin-top: 10px;
+    }
+
+    /* h5::before {
+        content: "♥";
+    } */
+
+    @media (min-width: 1200px) {
+        .container {
+            max-width: 3000px;
+        }
+    }
+
+    @media only screen and (max-width: 700px) {
+        .formulario {
+            top: 0%;
+        }
+    }
+</style>
 {% endblock %}
 
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm columnafecha  d-flex justify-content-center">
+            <div class="formulario fecha border border-danger rounded">
+                <h5 class="gj-datepicker">Elige una fecha:</h5>
+                <input id="datepicker" width="276" />
+                <h5>Elige una playa:</h5>
+                <select class="browser-default custom-select">
+                    <option selected>Ninguna</option>
+                    <option value="Playa 1">Playa 1</option>
+                    <option value="Playa 2">Playa 2</option>
+                    <option value="Playa 3">Playa 3</option>
+                </select>
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary"
+                        style="background-color: goldenrod; border-color: goldenrod; color: black;">Consultar</button>
+                </div>
+            </div>
+            <div class="formulario resultados border border-danger rounded">
+                hola
+            </div>
 
-{% block body %}
-    {{super()}}
-    <div class='recuadro' style="color: aliceblue;" ">
-        <div style="position:relative; left:20%; top:40%">
-            <h1>Mapas</h1>
-            Eleccion fechas
-            <input type="date" id="fecha" name="fecah"> 	    
+
+        </div>
+        <div class="col-sm" >
+            {% include "mapaChile.html" %}
         </div>
     </div>
-	<div class='recuadro' >
-        {% include "mapaChile.html" %}
-	</div>
+</div>
+
 
 {% endblock %}
 
+
+{% block scripts %}
+
+{% endblock %}
+<!-- fin scrips -->

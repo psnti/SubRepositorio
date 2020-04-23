@@ -1,0 +1,69 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400);
+
+body {
+  background:none;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.center {
+  display: table;
+  height: 100vh;
+}
+
+#social-test {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  font-size: 30px;
+  position: absolute;
+  top: 50%;
+  right: 20%;
+}
+  #social-test.social {
+    padding-left: 0px;
+  }
+  #social-test li {
+    display: inline-block;
+  }
+  #social-test li a {
+    color: rgba(256, 256, 256, 0.6);
+    border-radius: 6px;
+    list-style-type: none;
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    padding: 1%;
+    border: 1px solid rgba(256, 256, 256, 0.6);
+    cursor: pointer;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    transition: ease .3s;
+  }
+  #social-test li a :hover {
+      color: rgba(256, 256, 256, 1);
+      border: 1px solid rgba(256, 256, 256, 1);
+    }
+
+
+.social:hover > li {
+  opacity: 0.5;
+}
+
+.social:hover > li:hover {
+  opacity: 1;
+}
+.credits, .credits a {
+  font-size: 20px;
+  font-family: Open Sans;
+  color: rgba(256, 256, 256, 0.6);
+}
+
+@media only screen and (max-width: 700px) {
+    .row {
+        position: absolute;
+        left: 0%;
+        top: 50%;
+    }
+}
