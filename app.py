@@ -1,4 +1,4 @@
-from flask import Flask,render_template
+from flask import Flask,render_template,send_from_directory
 from flask_bootstrap import Bootstrap
 import folium
 import os
@@ -8,6 +8,11 @@ import pandas as pd
 
 app = Flask(__name__)
 Bootstrap(app)
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static','pics'),
+                               'favicon.png', mimetype='image/vnd.microsoft.icon')
 
 @app.route('/')
 def paginaPrincipal():
