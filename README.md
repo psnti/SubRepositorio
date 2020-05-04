@@ -1,4 +1,5 @@
-# Web Jellyfish Forecast
+# Web Jellyfish Forecast <img src = "static/pics/favicon.png" > 
+
 #### TFG - Pablo Santidrian Tudanca
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-green)](https://www.python.org/)
 [![made-with-flask](https://img.shields.io/badge/Made%20with-Flask-orange)](https://flask.palletsprojects.com/en/1.1.x/)
