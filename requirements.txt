@@ -1,3 +1,6 @@
+django
+gunicorn
+django-heroku
 astroid==2.3.3
 autopep8==1.5.2
 beautifulsoup4==4.9.0
