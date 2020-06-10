@@ -55,7 +55,7 @@ def paginaMapas():
                 icon=folium.Icon(color='blue', icon='cloud')
             ).add_to(folium_map)
             # guardo mapa
-            folium_map.save('templates/mapaChile.html')
+            folium_map.save('templates\\mapaChile.html')
             arregla_mapa()
             #genera_resultados()
             return render_template('mapas.html', playas = df.keys(), resultados = var, fecha = fecha)
@@ -65,7 +65,7 @@ def paginaMapas():
     start_coords = (-34.536267, -72.406639)
     folium_map = folium.Map(location=start_coords, zoom_start=5)
     # guardo mapa
-    folium_map.save('templates/mapaChile.html')
+    folium_map.save('templates\\mapaChile.html')
     # elimino libreria en conflicto
     arregla_mapa()
     return render_template('mapas.html',playas = df.keys(),resultados = None)
@@ -84,7 +84,7 @@ def paginaPlayas():
     df = df.to_dict()
     start_coords = (-34.536267, -72.406639)
     folium_map = folium.Map(location=start_coords, zoom_start=5)
-    folium_map.save('templates/mapaChile.html')
+    folium_map.save('templates\\mapaChile.html')
     arregla_mapa()
     return render_template('prueba.html', playas = df.keys(),resultados = None)
 
