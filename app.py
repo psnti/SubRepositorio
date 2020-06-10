@@ -12,8 +12,7 @@ app = Flask(__name__)
 app.secret_key = 'super clave secreta'
 Bootstrap(app)
 
-df = pd.read_excel('geojson\\playasCoordenadas.xlsx')
-df = df.to_dict()
+
 folium_map = folium.Map()
 
 
@@ -35,6 +34,8 @@ def paginaContacto():
 
 @app.route('/mapas', methods=['GET','POST'])
 def paginaMapas():
+    df = pd.read_excel('geojson\\playasCoordenadas.xlsx')
+    df = df.to_dict()   
     if request.method == 'POST':
         # variables
         var = request.form['eleccion']
@@ -79,7 +80,8 @@ def genera_resultados(fecha, coordenadas):
 ## zoom a playa especifica
 @app.route('/pruebas3', methods=['GET','POST'])
 def paginaPlayas():
-    
+    df = pd.read_excel('geojson\\playasCoordenadas.xlsx')
+    df = df.to_dict()
     start_coords = (-34.536267, -72.406639)
     folium_map = folium.Map(location=start_coords, zoom_start=5)
     folium_map.save('templates\\mapaChile.html')
