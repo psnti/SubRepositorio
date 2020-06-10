@@ -48,8 +48,8 @@
         color: black;
         margin-top: 10px;
     }
-    
-    .mapa{
+
+    .mapa {
         padding-right: 0%;
     }
 
@@ -62,16 +62,18 @@
     @media screen and (max-width: 575px) {
         .mapa {
             top: 86px;
-        } 
-        .col-sm{
+        }
+
+        .col-sm {
             padding-left: 0%;
             padding-right: 0%;
         }
     }
+
     @media screen and (max-width: 376px) {
         .mapa {
             top: 156px;
-        } 
+        }
     }
 </style>
 {% endblock %}
@@ -81,22 +83,42 @@
     <div class="row">
         <div class="col-sm columnafecha  d-flex justify-content-center">
             <div class="formulario fecha border  rounded">
-                <h5 class="gj-datepicker">Elige una fecha:</h5>
-                <input id="datepicker" width="100%" />
-                <h5>Elige una playa:</h5>
-                <select class="browser-default custom-select">
-                    <option selected>Ninguna</option>
-                    <option value="Playa 1">Playa 1</option>
-                    <option value="Playa 2">Playa 2</option>
-                    <option value="Playa 3">Playa 3</option>
-                </select>
-                <div class="text-center">
-                    <button type="button" class="btn btn-primary"
-                        style="background-color: goldenrod; border-color: goldenrod; color: black;">Consultar</button>
-                </div>
+                <!-- <h5 class="gj-datepicker">Elige una fecha:</h5>
+                <input id="datepicker" width="100%" /> -->
+
+                <form method="POST" action="/mapas">
+                    {% with messages  = get_flashed_messages() %} 
+                        {% if messages %}
+                        
+                        <div class="alert alert-danger" role="alert">
+                            <span>{{ messages[0] }}</span>
+                          </div>
+
+                        {% endif %}
+                    {% endwith %}
+
+                    <h5 class="gj-datepicker">Elige una fecha:</h5>
+                    <input id="datepicker" width="100%" name='fecha' />
+
+                    <h5>Elige una playa:</h5>
+                    <select class="browser-default custom-select" name='eleccion'>
+                        <option selected>Ninguna</option>
+                        {% for elemento in playas %}
+                        <option value={{elemento}}>{{elemento}}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary"
+                            style="background-color: goldenrod; border-color: goldenrod; color: black;">Consultar</button>
+                    </div>
+                </form>
             </div>
             <div class="formulario resultados border  rounded">
                 Resultados
+                {% if resultados != None %}
+                para las costas de {{resultados}} ({{fecha}})
+
+                {% endif %}
             </div>
         </div>
         <div class="col-sm mapa">
