@@ -12,8 +12,7 @@ app = Flask(__name__)
 app.secret_key = 'super clave secreta'
 Bootstrap(app)
 
-df = pd.read_excel('geojson\\playasCoordenadas.xlsx')
-df = df.to_dict()
+
 folium_map = folium.Map()
 
 
@@ -35,6 +34,8 @@ def paginaContacto():
 
 @app.route('/mapas', methods=['GET','POST'])
 def paginaMapas():
+    df = pd.read_excel('geojson/playasCoordenadas.xlsx')
+    df = df.to_dict()   
     if request.method == 'POST':
         # variables
         var = request.form['eleccion']
@@ -54,7 +55,7 @@ def paginaMapas():
                 icon=folium.Icon(color='blue', icon='cloud')
             ).add_to(folium_map)
             # guardo mapa
-            folium_map.save('templates\\mapaChile.html')
+            folium_map.save('templates/mapaChile.html')
             arregla_mapa()
             #genera_resultados()
             return render_template('mapas.html', playas = df.keys(), resultados = var, fecha = fecha)
@@ -64,7 +65,7 @@ def paginaMapas():
     start_coords = (-34.536267, -72.406639)
     folium_map = folium.Map(location=start_coords, zoom_start=5)
     # guardo mapa
-    folium_map.save('templates\\mapaChile.html')
+    folium_map.save('templates/mapaChile.html')
     # elimino libreria en conflicto
     arregla_mapa()
     return render_template('mapas.html',playas = df.keys(),resultados = None)
@@ -76,19 +77,10 @@ def genera_resultados(fecha, coordenadas):
     pass
 
 
-## zoom a playa especifica
-@app.route('/pruebas3', methods=['GET','POST'])
-def paginaPlayas():
-    
-    start_coords = (-34.536267, -72.406639)
-    folium_map = folium.Map(location=start_coords, zoom_start=5)
-    folium_map.save('templates\\mapaChile.html')
-    arregla_mapa()
-    return render_template('prueba.html', playas = df.keys(),resultados = None)
 
 # elimina javascrip y css en conflicto
 def arregla_mapa():
-    f = open('templates\\mapaChile.html', 'r')
+    f = open('templates/mapaChile.html', 'r')
     filedata = f.read()
     f.close()
 
@@ -100,7 +92,7 @@ def arregla_mapa():
         '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>', '')
     # newdata = newdata.replace('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>','')
 
-    f = open('templates\\mapaChile.html', 'w')
+    f = open('templates/mapaChile.html', 'w')
     f.write(newdata)
     f.close()
 
