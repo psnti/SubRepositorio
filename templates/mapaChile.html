@@ -7,11 +7,11 @@
             L_DISABLE_3D = false;
         </script>
     
-    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.css"/>
     
     
     
@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_35b8e4c555514bfc8fd6b77f9a2803b2 {
+                #map_2ad66885025c473a8da08fec10bc13a1 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -35,17 +35,17 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_35b8e4c555514bfc8fd6b77f9a2803b2" ></div>
+            <div class="folium-map" id="map_2ad66885025c473a8da08fec10bc13a1" ></div>
         
 </body>
 <script>    
     
-            var map_35b8e4c555514bfc8fd6b77f9a2803b2 = L.map(
-                "map_35b8e4c555514bfc8fd6b77f9a2803b2",
+            var map_2ad66885025c473a8da08fec10bc13a1 = L.map(
+                "map_2ad66885025c473a8da08fec10bc13a1",
                 {
-                    center: [-34.536267, -72.406639],
+                    center: [-18.487997699999998, -70.3289786],
                     crs: L.CRS.EPSG3857,
-                    zoom: 5,
+                    zoom: 15,
                     zoomControl: true,
                     preferCanvas: false,
                 }
@@ -55,9 +55,34 @@
 
         
     
-            var tile_layer_8911d4175ad0406cb71f0e0c86865aac = L.tileLayer(
+            var tile_layer_5d4b0d9b4a14443e99d478a1fce79920 = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_35b8e4c555514bfc8fd6b77f9a2803b2);
+            ).addTo(map_2ad66885025c473a8da08fec10bc13a1);
         
+    
+            var marker_4a3c7df61b3f4c6cacb16ddce9240a7c = L.marker(
+                [-18.487997699999998, -70.3289786],
+                {}
+            ).addTo(map_2ad66885025c473a8da08fec10bc13a1);
+        
+    
+            var icon_2f84abec1b9f4f29bd7ce72b6b2489d2 = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "cloud", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_4a3c7df61b3f4c6cacb16ddce9240a7c.setIcon(icon_2f84abec1b9f4f29bd7ce72b6b2489d2);
+        
+    
+        var popup_b412f545d77a4ad0af4db6626e993ed4 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_eb3fc3a8127c4d5fab615066e08c35d7 = $(`<div id="html_eb3fc3a8127c4d5fab615066e08c35d7" style="width: 100.0%; height: 100.0%;">El_Laucho</div>`)[0];
+            popup_b412f545d77a4ad0af4db6626e993ed4.setContent(html_eb3fc3a8127c4d5fab615066e08c35d7);
+        
+
+        marker_4a3c7df61b3f4c6cacb16ddce9240a7c.bindPopup(popup_b412f545d77a4ad0af4db6626e993ed4)
+        ;
+
+        
+    
 </script>

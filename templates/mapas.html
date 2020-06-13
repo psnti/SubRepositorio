@@ -117,7 +117,7 @@
                 Resultados
                 {% if resultados != None %}
                 para las costas de {{resultados}} ({{fecha}})
-
+                <div class="container-fluid" id="data-container"></div>
                 {% endif %}
             </div>
         </div>
@@ -127,4 +127,70 @@
     </div>
 </div>
 
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+
+<script>
+    var chart;
+
+    function requestData()
+    {
+        // Ajax call to get the Data from Flask
+        try{
+            var requests = $.get('/data');
+        console.log(requests);
+
+
+        var tm = requests.done(function (result)
+        {
+            var series = chart.series[0],
+                shift = series.data.length > 20;
+
+            // add the point
+            chart.series[0].addPoint(result, true, shift);
+
+            // call it again after one second
+            setTimeout(requestData, 300);
+        });
+        }catch(error){
+
+        }
+        
+    }
+
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'data-container',
+                defaultSeriesType: 'spline',
+                events: {
+                    load: requestData
+                }
+            },
+            title: {
+                text: 'Live random data'
+            },
+            xAxis: {
+                type: 'datetime',
+                tickPixelInterval: 150,
+                maxZoom: 20 * 1000
+            },
+            yAxis: {
+                minPadding: 0.2,
+                maxPadding: 0.2,
+                title: {
+                    text: 'Value',
+                    margin: 80
+                }
+            },
+            series: [{
+                name: 'Random data',
+                data: []
+            }]
+        });
+
+    });
+</script>
 {% endblock %}

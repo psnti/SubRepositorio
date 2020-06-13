@@ -14,6 +14,8 @@ Bootstrap(app)
 
 
 folium_map = folium.Map()
+lista = [[1000,1],[2000,2],[3000,1]]
+contador = 0
 
 
 @app.route('/favicon.ico')
@@ -67,15 +69,43 @@ def paginaMapas():
     # guardo mapa
     folium_map.save('templates/mapaChile.html')
     # elimino libreria en conflicto
-    arregla_mapa()
+    # arregla_mapa()
     return render_template('mapas.html',playas = df.keys(),resultados = None)
 
 
         
+@app.route("/simple_chart")
+def chart():
+    print(contador)
+    legend = 'Monthly Data'
+    labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
+    values = [10, 9, 8, 7, 6, 4, 7, 8]
+    return render_template('graficos.html', values=values, labels=labels, legend=legend)
 
-def genera_resultados(fecha, coordenadas):
-    pass
-
+# @app.route('/data', methods=["GET", "POST"])
+# def data():
+#     global contador
+#     # data = [time() * 1000, random() * 100]
+#     data = lista[contador]
+#     contador += 1
+#     response = make_response(json.dumps(data))
+#     response.content_type = 'application/json'
+#     print(response)
+#     return response
+@app.route('/data', methods=["GET", "POST"])
+def data():
+    global contador
+    try:
+        data = lista[contador]
+        contador += 1
+        response = make_response(json.dumps(data))
+        response.content_type = 'application/json'
+        print(response)
+        return response
+    except:
+        contador = 0
+        return None
+    
 
 
 # elimina javascrip y css en conflicto
