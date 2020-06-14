@@ -5,115 +5,57 @@
 <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="static/css/graficos.css">
 
-
 <style>
-    .container {
-        height: 90% !important;
-        padding-top: 1%;
-        width: 100% !important;
-        max-width: 100% !important;
-        /* min-width: 400px; */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        margin-top: 5px;
     }
 
-    .container-fluid{
+    .container {
         height: 100%;
+        padding: 0%;
+        max-width: 100%;
     }
 
     .row {
-        height: 100% !important;
-        width: 100% !important;
-        padding: 0px;
-        margin-right: 0px;
-        margin-left: 0px;
-        top: 0% !important;
-        position: relative;
+        margin: 1%;
+        margin-bottom: 2%;
     }
 
-    .formulario {
-        position: absolute;
-        background-color: whitesmoke;
-        padding: 10px;
-        width: 100%;
-        height: auto;
+    .row.principal {
+        height: 100%;
     }
 
-    .formulario.fecha {
-        /* top: 30px; */
+    .col-sm {
+        padding: 0%;
     }
 
-    .formulario.resultados {
-        top: 35%;
-        height: 65%;
-        /* visibility: hidden; */
-    }
-
-    .gj-textbox-md {
-        background-color: white;
-    }
-
-    h5,
-    button {
-        color: black;
+    .btn {
         margin-top: 10px;
     }
 
-    .mapa {
-        padding-right: 0%;
-    }
-
-    @media (min-width: 1200px) {
-        .container {
-            max-width: 3000px;
+    @media only screen and (max-width: 700px) {
+        .row {
+            position: relative;
+            left: 0%;
+            top: 0%;
+            padding: 0%;
         }
     }
 
-    @media screen and (max-width: 575px) {
-        .mapa {
-            top: 18%;
+    @media only screen and (max-width: 576px) {
+        .row {
+            height: 100%;
         }
-
-        .col-sm {
-            padding-left: 0%;
-            padding-right: 0%;
+        .superior{
+            height: auto;
         }
-
-        .formulario.resultados{
-            top: 55%;
-        }
-    }
-
-    @media screen and (max-width: 412px) {
-        .mapa {
-            top: 22%;
-        }
-        .formulario.resultados{
-            top: 70%;
-        }
-    }
-
-    @media screen and (max-width: 376px) {
-        .mapa {
-            top: 156px;
-        }
-        .formulario.resultados{
-            top: 65%;
-        }
-    }
-
-    @media screen and (max-width: 360px) {
-        .mapa {
-            top: 156px;
-        }
-        .formulario.resultados{
-            top: 80%;
-        }
-    }
-    @media screen and (max-width: 321px) {
-        .mapa {
-            top: 33%;
-        }
-        .formulario.resultados{
-            top: 90%;
+        .mapa{
+            height: 100%;
         }
     }
 </style>
@@ -126,55 +68,61 @@
 
 {% block content %}
 <div class="container">
-    <div class="row">
-        <div class="col-sm columnafecha  d-flex justify-content-center">
-            
-            <div class="formulario fecha border  rounded">
-                <!-- <h5 class="gj-datepicker">Elige una fecha:</h5>
-                <input id="datepicker" width="100%" /> -->
+    <div class="row principal">
+        <div class="col-sm ">
+            <div class="row secundaria superior">
+                <div class="col-sm">
+                    <div class="card bg-light">
+                        <div class="card-body text-center">
+                            <form method="POST" action="/mapas">
+                                {% with messages  = get_flashed_messages() %}
+                                {% if messages %}
 
-                <form method="POST" action="/mapas">
-                    {% with messages  = get_flashed_messages() %}
-                    {% if messages %}
+                                <div class="alert alert-danger" role="alert">
+                                    <span>{{ messages[0] }}</span>
+                                </div>
 
-                    <div class="alert alert-danger" role="alert">
-                        <span>{{ messages[0] }}</span>
+                                {% endif %}
+                                {% endwith %}
+
+                                <h5 class="gj-datepicker">Elige una fecha:</h5>
+                                <input id="datepicker" width="100%" name='fecha' />
+
+                                <h5>Elige una playa:</h5>
+                                <select class="browser-default custom-select" name='eleccion'>
+                                    <option selected>Ninguna</option>
+                                    {% for elemento in playas %}
+                                    <option value={{elemento}}>{{elemento}}</option>
+                                    {% endfor %}
+                                </select>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary"
+                                        style="background-color: goldenrod; border-color: goldenrod; color: black;">Consultar</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-
-                    {% endif %}
-                    {% endwith %}
-
-                    <h5 class="gj-datepicker">Elige una fecha:</h5>
-                    <input id="datepicker" width="100%" name='fecha' />
-
-                    <h5>Elige una playa:</h5>
-                    <select class="browser-default custom-select" name='eleccion'>
-                        <option selected>Ninguna</option>
-                        {% for elemento in playas %}
-                        <option value={{elemento}}>{{elemento}}</option>
-                        {% endfor %}
-                    </select>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary"
-                            style="background-color: goldenrod; border-color: goldenrod; color: black;">Consultar</button>
-                    </div>
-                </form>
-            </div>
-            <div class="formulario resultados border  rounded">
-                Resultados
-                {% if resultados != None %}
-                para las costas de {{nombre}} ({{fecha}})
-                <div class="container-fluid" id="data-container">    
-                    <div id="line-chart" style="height: 90%;"></div>                                    
                 </div>
-                {% endif %}
+            </div>
+            <div class="row secundaria inferior">
+                <div class="col-sm">
+                    <div class="card bg-light">
+                        <div class="card-body text-center">
+                            Resultados
+                            {% if resultados != None %}
+                            para las costas de {{nombre}} ({{fecha}})
+                            <div class="container-fluid" id="data-container">
+                                <div id="line-chart" style="height: 90%;"></div>
+                            </div>
+                            {% endif %} </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-sm mapa rounded">
+        <div class="col-sm mapa">
             {% include "mapaChile.html" %}
         </div>
     </div>
 </div>
 
 {% endblock %}
-
