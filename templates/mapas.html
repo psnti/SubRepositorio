@@ -3,13 +3,20 @@
 {% block styles %}
 {{ super() }}
 <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="static/css/graficos.css">
+
+
 <style>
     .container {
         height: 90% !important;
         padding-top: 1%;
         width: 100% !important;
         max-width: 100% !important;
-        min-width: 400px;
+        /* min-width: 400px; */
+    }
+
+    .container-fluid{
+        height: 100%;
     }
 
     .row {
@@ -27,16 +34,17 @@
         background-color: whitesmoke;
         padding: 10px;
         width: 100%;
-        height: 230px;
+        height: auto;
     }
 
     .formulario.fecha {
-        top: 30px;
+        /* top: 30px; */
     }
 
     .formulario.resultados {
-        top: 275px;
-
+        top: 35%;
+        height: 65%;
+        /* visibility: hidden; */
     }
 
     .gj-textbox-md {
@@ -61,12 +69,25 @@
 
     @media screen and (max-width: 575px) {
         .mapa {
-            top: 86px;
+            top: 18%;
         }
 
         .col-sm {
             padding-left: 0%;
             padding-right: 0%;
+        }
+
+        .formulario.resultados{
+            top: 55%;
+        }
+    }
+
+    @media screen and (max-width: 412px) {
+        .mapa {
+            top: 22%;
+        }
+        .formulario.resultados{
+            top: 70%;
         }
     }
 
@@ -74,27 +95,53 @@
         .mapa {
             top: 156px;
         }
+        .formulario.resultados{
+            top: 65%;
+        }
+    }
+
+    @media screen and (max-width: 360px) {
+        .mapa {
+            top: 156px;
+        }
+        .formulario.resultados{
+            top: 80%;
+        }
+    }
+    @media screen and (max-width: 321px) {
+        .mapa {
+            top: 33%;
+        }
+        .formulario.resultados{
+            top: 90%;
+        }
     }
 </style>
+{% endblock %}
+
+{% block body %}
+{{ super() }}
+<script src="static/js/grafico.js"></script>
 {% endblock %}
 
 {% block content %}
 <div class="container">
     <div class="row">
         <div class="col-sm columnafecha  d-flex justify-content-center">
+            
             <div class="formulario fecha border  rounded">
                 <!-- <h5 class="gj-datepicker">Elige una fecha:</h5>
                 <input id="datepicker" width="100%" /> -->
 
                 <form method="POST" action="/mapas">
-                    {% with messages  = get_flashed_messages() %} 
-                        {% if messages %}
-                        
-                        <div class="alert alert-danger" role="alert">
-                            <span>{{ messages[0] }}</span>
-                          </div>
+                    {% with messages  = get_flashed_messages() %}
+                    {% if messages %}
 
-                        {% endif %}
+                    <div class="alert alert-danger" role="alert">
+                        <span>{{ messages[0] }}</span>
+                    </div>
+
+                    {% endif %}
                     {% endwith %}
 
                     <h5 class="gj-datepicker">Elige una fecha:</h5>
@@ -116,12 +163,14 @@
             <div class="formulario resultados border  rounded">
                 Resultados
                 {% if resultados != None %}
-                para las costas de {{resultados}} ({{fecha}})
-                <div class="container-fluid" id="data-container"></div>
+                para las costas de {{nombre}} ({{fecha}})
+                <div class="container-fluid" id="data-container">    
+                    <div id="line-chart" style="height: 90%;"></div>                                    
+                </div>
                 {% endif %}
             </div>
         </div>
-        <div class="col-sm mapa">
+        <div class="col-sm mapa rounded">
             {% include "mapaChile.html" %}
         </div>
     </div>
@@ -129,68 +178,3 @@
 
 {% endblock %}
 
-{% block scripts %}
-{{ super() }}
-
-<script>
-    var chart;
-
-    function requestData()
-    {
-        // Ajax call to get the Data from Flask
-        try{
-            var requests = $.get('/data');
-        console.log(requests);
-
-
-        var tm = requests.done(function (result)
-        {
-            var series = chart.series[0],
-                shift = series.data.length > 20;
-
-            // add the point
-            chart.series[0].addPoint(result, true, shift);
-
-            // call it again after one second
-            setTimeout(requestData, 300);
-        });
-        }catch(error){
-
-        }
-        
-    }
-
-    $(document).ready(function() {
-        chart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'data-container',
-                defaultSeriesType: 'spline',
-                events: {
-                    load: requestData
-                }
-            },
-            title: {
-                text: 'Live random data'
-            },
-            xAxis: {
-                type: 'datetime',
-                tickPixelInterval: 150,
-                maxZoom: 20 * 1000
-            },
-            yAxis: {
-                minPadding: 0.2,
-                maxPadding: 0.2,
-                title: {
-                    text: 'Value',
-                    margin: 80
-                }
-            },
-            series: [{
-                name: 'Random data',
-                data: []
-            }]
-        });
-
-    });
-</script>
-{% endblock %}

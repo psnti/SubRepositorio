@@ -43,9 +43,11 @@ def paginaMapas():
         var = request.form['eleccion']
         fecha = request.form['fecha']
         if 'Ninguna' not in var:
+            # Si nose ha metido fecha lanzar mensaje de error
             if fecha == '':
                 flash('Introduce una Fecha')
                 return redirect(request.url)
+
             # recojo coordenadas de la playa
             coordenada = df[var]
             print(coordenada)
@@ -59,8 +61,9 @@ def paginaMapas():
             # guardo mapa
             folium_map.save('templates/mapaChile.html')
             arregla_mapa()
-            #genera_resultados()
-            return render_template('mapas.html', playas = df.keys(), resultados = var, fecha = fecha)
+            #resulados 
+            resultados = genera_resultados(fecha, coordenada)
+            return render_template('mapas.html', playas = df.keys(),nombre = var, resultados = resultados, fecha = fecha)
 
 
     # creo mapa en coordenadas
@@ -69,18 +72,20 @@ def paginaMapas():
     # guardo mapa
     folium_map.save('templates/mapaChile.html')
     # elimino libreria en conflicto
-    # arregla_mapa()
+    arregla_mapa()
     return render_template('mapas.html',playas = df.keys(),resultados = None)
 
 
         
-@app.route("/simple_chart")
-def chart():
-    print(contador)
-    legend = 'Monthly Data'
-    labels = ["January", "February", "March", "April", "May", "June", "July", "August"]
-    values = [10, 9, 8, 7, 6, 4, 7, 8]
-    return render_template('graficos.html', values=values, labels=labels, legend=legend)
+def genera_resultados(fecha,coodenadas):
+    # se cogerian los datos de copernicus
+    # generar dataframe
+    # meterlo al modelo
+    lista = [{'year': '2020-1-1','value': 1},
+            {'year': '2020-2-1','value': 10},
+            {'year': '2020-1-5','value': 5},
+            {'year': '2020-3-5','value': 2}]
+    return lista 
 
 # @app.route('/data', methods=["GET", "POST"])
 # def data():
@@ -110,7 +115,8 @@ def data():
 
 # elimina javascrip y css en conflicto
 def arregla_mapa():
-    f = open('templates/mapaChile.html', 'r')
+    f = open('./templates/mapaChile.html', 'r')
+    print(f)
     filedata = f.read()
     f.close()
 
@@ -122,7 +128,7 @@ def arregla_mapa():
         '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>', '')
     # newdata = newdata.replace('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>','')
 
-    f = open('templates/mapaChile.html', 'w')
+    f = open('./templates/mapaChile.html', 'w')
     f.write(newdata)
     f.close()
 
