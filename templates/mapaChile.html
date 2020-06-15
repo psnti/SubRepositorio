@@ -7,11 +7,11 @@
             L_DISABLE_3D = false;
         </script>
     
-    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.5.1/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
     
     
     
@@ -23,7 +23,7 @@
             <meta name="viewport" content="width=device-width,
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
             <style>
-                #map_91295eb7fb444489b2cf135db59e243a {
+                #map_68f650c442004c0db406a9b11997a494 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -35,17 +35,17 @@
 </head>
 <body>    
     
-            <div class="folium-map" id="map_91295eb7fb444489b2cf135db59e243a" ></div>
+            <div class="folium-map" id="map_68f650c442004c0db406a9b11997a494" ></div>
         
 </body>
 <script>    
     
-            var map_91295eb7fb444489b2cf135db59e243a = L.map(
-                "map_91295eb7fb444489b2cf135db59e243a",
+            var map_68f650c442004c0db406a9b11997a494 = L.map(
+                "map_68f650c442004c0db406a9b11997a494",
                 {
-                    center: [-34.536267, -72.406639],
+                    center: [-18.493643399999996, -70.3281622],
                     crs: L.CRS.EPSG3857,
-                    zoom: 5,
+                    zoom: 15,
                     zoomControl: true,
                     preferCanvas: false,
                 }
@@ -55,9 +55,34 @@
 
         
     
-            var tile_layer_26d555e810504faea03c0736324787f1 = L.tileLayer(
+            var tile_layer_5c1dbbbfd6c347ec8bde9a86f795562c = L.tileLayer(
                 "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                 {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
-            ).addTo(map_91295eb7fb444489b2cf135db59e243a);
+            ).addTo(map_68f650c442004c0db406a9b11997a494);
         
+    
+            var marker_c34b15c131df4fc19a3eba11f0355493 = L.marker(
+                [-18.493643399999996, -70.3281622],
+                {}
+            ).addTo(map_68f650c442004c0db406a9b11997a494);
+        
+    
+            var icon_602385284bbe44a4afc29481789b220f = L.AwesomeMarkers.icon(
+                {"extraClasses": "fa-rotate-0", "icon": "cloud", "iconColor": "white", "markerColor": "blue", "prefix": "glyphicon"}
+            );
+            marker_c34b15c131df4fc19a3eba11f0355493.setIcon(icon_602385284bbe44a4afc29481789b220f);
+        
+    
+        var popup_df1fea329a854f31acaa717b19ac8d61 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_ee5e366dc0d14b529bd43ca031c0a049 = $(`<div id="html_ee5e366dc0d14b529bd43ca031c0a049" style="width: 100.0%; height: 100.0%;">La_Lisera</div>`)[0];
+            popup_df1fea329a854f31acaa717b19ac8d61.setContent(html_ee5e366dc0d14b529bd43ca031c0a049);
+        
+
+        marker_c34b15c131df4fc19a3eba11f0355493.bindPopup(popup_df1fea329a854f31acaa717b19ac8d61)
+        ;
+
+        
+    
 </script>
