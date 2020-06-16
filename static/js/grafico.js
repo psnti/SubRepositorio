@@ -1,34 +1,22 @@
+function lineChart(x) {
+  console.log(x);
+  var w = JSON.parse(x);
+  window.lineChart = Morris.Line({
+    element: 'line-chart',
 
-$(document).ready(function() {
-    lineChart();
-  
-    $(window).resize(function() {
+    data: w,
+    xkey: 'y',
+    // ykeys: ['a', 'b'],
+    ykeys: ['v'],
 
-      window.lineChart.redraw();
+    // labels: ['Series A', 'Series B'],
+    labels: ['Avistamientos'],
 
-    });
+    // lineColors: ['#1e88e5','#ff3321'],
+    lineColors: ['#ff99c6'],
+    lineWidth: '3px',
+    pointFillColors: ['#4B0082'],
+    resize: true,
+    redraw: true
   });
-
-
-
-function lineChart() {
-    window.lineChart = Morris.Line({
-      element: 'line-chart',
-      data: [
-        { y: '2006', a: 100, b: 90 },
-        { y: '2007', a: 75,  b: 65 },
-        { y: '2008', a: 50,  b: 40 },
-        { y: '2009', a: 75,  b: 65 },
-        { y: '2010', a: 50,  b: 40 },
-        { y: '2011', a: 75,  b: 65 },
-        { y: '2012', a: 100, b: 90 }
-      ],
-      xkey: 'y',
-      ykeys: ['a', 'b'],
-      labels: ['Series A', 'Series B'],
-      lineColors: ['#1e88e5','#ff3321'],
-      lineWidth: '3px',
-      resize: true,
-      redraw: true
-    });
-  }
+}
