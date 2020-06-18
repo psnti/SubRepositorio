@@ -107,19 +107,33 @@
                 <div class="col-sm">
                     <div class="card bg-light">
                         <div class="card-body text-center">
-                            Resultados
+
+                            
                             {% if resultados != None %}
-                            para las costas de {{nombre}} ({{fecha}})
-                            <div class="container-fluid" id="data-container">
-                                <div id="line-chart" style="height: 90%;"></div>
+                                <h5>Resultados para las costas de {{nombre}} ({{fecha}}).</h5>
+                                <div class="container-fluid border border-dark rounded" id="data-container">
+                                    <div id="line-chart" style="height: 90%;"></div>
+                                </div>
+                            {% else %}
+                            <div class="alert alert-info" role="alert">
+                                Resultados 
                             </div>
-                            {% endif %} </div>
+                            {% endif %} 
+                            <br>
+                            {% if resultados != None %}
+                               <h5>Historico de avistamientos</h5> 
+
+                            <div class="container-fluid_historico border border-dark rounded" id="data-container">
+                                <div id="line-chart_historico" style="height: 90%;"></div>
+                            </div>
+                            {% endif %} 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-sm mapa">
-            
+
             {{mapa|safe}}
         </div>
     </div>
@@ -132,10 +146,13 @@
 <script>
     $(document).ready(function () {
         lineChart('{{ resultados|tojson }}');
+        lineChart_historico('{{ historico|tojson }}');
 
         $(window).resize(function () {
 
             window.lineChart.redraw();
+            window.lineChart_historico.redraw();
+
 
         });
     });
@@ -158,6 +175,31 @@
             lineColors: ['#ff99c6'],
             lineWidth: '3px',
             pointFillColors: ['#4B0082'],
+            fillOpacity: 0.4,
+            hideHover: 'auto',
+            
+            resize: true,
+            redraw: true
+        });
+    }
+    function lineChart_historico(x) {
+        console.log(x);
+        var w = JSON.parse(x);
+        window.lineChart = Morris.Line({
+            element: 'line-chart_historico',
+
+            data: w,
+            xkey: 'y',
+            // ykeys: ['a', 'b'],
+            ykeys: ['v'],
+
+            // labels: ['Series A', 'Series B'],
+            labels: ['Avistamientos'],
+
+            // lineColors: ['#1e88e5','#ff3321'],
+            lineColors: ['#c1502e'],
+            lineWidth: '3px',
+            pointFillColors: ['#587e76'],
             resize: true,
             redraw: true
         });
