@@ -108,25 +108,23 @@
                     <div class="card bg-light">
                         <div class="card-body text-center">
 
-                            
+
                             {% if resultados != None %}
-                                <h5>Resultados para las costas de {{nombre}} ({{fecha}}).</h5>
-                                <div class="container-fluid border border-dark rounded" id="data-container">
-                                    <div id="line-chart" style="height: 90%;"></div>
-                                </div>
-                            {% else %}
-                            <div class="alert alert-info" role="alert">
-                                Resultados 
+                            <h5>Resultados para las costas de {{nombre}} ({{fecha}}).</h5>
+                            <div class="container-fluid border border-dark rounded" id="data-container">
+                                <div id="line-chart" style="height: 90%;"></div>
                             </div>
-                            {% endif %} 
+                            {% else %}
+                            <h5>Resultados</h5>
+                            {% endif %}
                             <br>
                             {% if resultados != None %}
-                               <h5>Historico de avistamientos</h5> 
+                            <h5>Historico de avistamientos</h5>
 
                             <div class="container-fluid_historico border border-dark rounded" id="data-container">
                                 <div id="line-chart_historico" style="height: 90%;"></div>
                             </div>
-                            {% endif %} 
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -177,7 +175,7 @@
             pointFillColors: ['#4B0082'],
             fillOpacity: 0.4,
             hideHover: 'auto',
-            
+
             resize: true,
             redraw: true
         });
