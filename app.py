@@ -51,7 +51,6 @@ def paginaMapas():
             coordenada = [-df['Lat.dec'][var],-df['Long.dec'][var]]
             print(coordenada)
             # agrego marcador al mapa y centro en coordenadas
-            borra_mapa()
             folium_map_especifico = folium.Map()
             folium_map_especifico = folium.Map(location=[coordenada[0],coordenada[1]], zoom_start=15)
             folium.Marker(
@@ -59,13 +58,11 @@ def paginaMapas():
                 popup=var,
                 icon=folium.Icon(color='blue', icon='cloud')
             ).add_to(folium_map_especifico)
-            # guardo mapa
-            folium_map_especifico.save('templates/mapaChile.html')
-            print(os.listdir('templates'))
-            arregla_mapa()
+            mapa = folium_map_especifico._repr_html_()
+
             #resulados 
             resultados = genera_resultados(fecha, coordenada)
-            return render_template('mapas.html', playas = df.index.values, nombre = var, resultados = resultados, fecha = fecha)
+            return render_template('mapas.html', playas = df.index.values, nombre = var, resultados = resultados, fecha = fecha, mapa = mapa)
 
 
     # creo mapa en coordenadas
@@ -74,12 +71,9 @@ def paginaMapas():
     start_coords = (-34.536267, -72.406639)
     folium_map = folium.Map(location=start_coords, zoom_start=5)
     folium_map = anade_playas(folium_map,df)
-    # guardo mapa
-    borra_mapa()
-    folium_map.save('templates/mapaChile.html')
     # elimino libreria en conflicto
-    arregla_mapa()
-    return render_template('mapas.html',playas = df.index.values,resultados = None)
+    mapa = arregla_mapa(folium_map._repr_html_())
+    return render_template('mapas.html',playas = df.index.values,resultados = None, mapa = mapa)
 
 def anade_playas(fol,playas):
     icon_url = 'static/pics/jellyfish.png'
@@ -114,7 +108,28 @@ def genera_resultados(fecha,coodenadas):
 
 
 # elimina javascrip y css en conflicto
-def arregla_mapa():
+def arregla_mapa(mapa):
+    
+    print(mapa)
+    print(type(mapa))
+    # filedata = f.read()
+    # f.close()
+
+    newdata = mapa.replace(
+        '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>', '')
+    newdata = newdata.replace(
+        '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>', '')
+    newdata = newdata.replace(
+        '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>', '')
+    # newdata = newdata.replace('<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>','')
+
+    # f = open('./templates/mapaChile.html', 'w')
+    # f.write(newdata)
+    # f.close()
+    return newdata
+
+# elimina javascrip y css en conflicto
+def arregla_mapa_(mapa):
     f = open('./templates/mapaChile.html', 'r')
     print(f)
     filedata = f.read()
