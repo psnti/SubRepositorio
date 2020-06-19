@@ -10,6 +10,7 @@ from joblib import load
 import sklearn
 from folium.plugins import MarkerCluster
 from datetime import datetime
+import numpy as np
 
 
 app = Flask(__name__)
@@ -64,7 +65,12 @@ def paginaMapas():
             historico = dame_historico(var)
             #resulados
             resultados = genera_resultados(fecha, coordenada)
-            return render_template('mapas.html', playas=df.index.values, nombre=var, resultados=resultados, historico=historico, fecha=fecha, mapa=mapa)
+            playas = df.index.tolist()
+            print(playas)
+            print(type(playas))
+            playas.insert(0,"Ninguna")
+            print(playas)
+            return render_template('mapas.html', playas=playas, nombre=var, resultados=resultados, historico=historico, fecha=fecha, mapa=mapa)
 
     # creo mapa en coordenadas
     print('mapa original')
@@ -81,7 +87,7 @@ def dame_historico(nombre_playa):
     excel = pd.read_excel('documentos/Datos_Physalia_20171010.xls')
     seleccion = excel.loc[excel['Lugar'] == nombre_playa]
     seleccion = seleccion.groupby(['Date']).sum().reset_index()
-    
+
     lista = []
     for i in seleccion.iterrows():
         lista.append({'y':(i[1]['Date']).strftime("%Y-%m-%d"),'v':i[1]['Abundancia']})
@@ -137,6 +143,10 @@ def arregla_mapa(mapa):
     return newdata
 
 
+
 if __name__ == '__main__':
 
     app.run(debug=True, port=1000)
+
+
+

@@ -89,7 +89,12 @@
 
                                 <h5>Elige una playa:</h5>
                                 <select class="browser-default custom-select" name='eleccion'>
+                                    {% if resultados == None %}
                                     <option selected>Ninguna</option>
+                                    {% else %}
+                                    <option selected>{{nombre}}</option>
+                                    {% endif %}
+
                                     {% for elemento in playas %}
                                     <option value={{elemento}}>{{elemento}}</option>
                                     {% endfor %}
@@ -142,16 +147,25 @@
 {% block scripts %}
 {{ super() }}
 <script>
+
     $(document).ready(function () {
+
         lineChart('{{ resultados|tojson }}');
         lineChart_historico('{{ historico|tojson }}');
+
+        $('#datetimepicker5').datetimepicker({
+                    defaultDate: "11/1/2013",
+                    disabledDates: [
+                        moment("12/25/2013"),
+                        new Date(2013, 11 - 1, 21),
+                        "11/22/2013 00:53"
+                    ]
+                });
 
         $(window).resize(function () {
 
             window.lineChart.redraw();
             window.lineChart_historico.redraw();
-
-
         });
     });
 
