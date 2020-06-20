@@ -1,27 +1,13 @@
-branca==0.4.1
-certifi==2020.4.5.2
-chardet==3.0.4
-click==7.1.2
-dominate==2.5.1
-Flask==1.1.2
-Flask-Bootstrap==3.3.7.1
-folium==0.11.0
-gunicorn==20.0.4
-idna==2.9
-itsdangerous==1.1.0
-Jinja2==2.11.2
-joblib==0.15.1
-MarkupSafe==1.1.1
-numpy==1.18.5
-pandas==1.0.4
-python-dateutil==2.8.1
-pytz==2020.1
-requests==2.23.0
-scikit-learn==0.23.1
-scipy==1.4.1
-six==1.15.0
-sklearn==0.0
-threadpoolctl==2.1.0
-urllib3==1.25.9
-visitor==0.1.3
-Werkzeug==1.0.1
+# Web Jellyfish Forecast <img src= "https://github.com/psnti/WebJellyfishForecast/blob/master/static/pics/favicon.png">
+#### TFG - Pablo Santidrian Tudanca
+[![made-with-python](https://img.shields.io/badge/Made%20with-Python-green)](https://www.python.org/)
+[![made-with-flask](https://img.shields.io/badge/Made%20with-Flask-orange)](https://flask.palletsprojects.com/en/1.1.x/)
+
+Aplicación web del trabajo de fin de grado sobre la predicción de la llegada de medusas a las playas en función de las condiciones climatológicas.
+Repositorio de proyecto: [JellyFish Forecast](https://github.com/psnti/Jellyfish_Forecast)
+
+Web del proyecto: [JellyFish Forecast](https://jellyfish-forecast.herokuapp.com)<br/>
+
+**Tutores:**
+- Jose Francisco Diez Pastor
+- Alvar Arnaiz Gonzalez
