@@ -7,8 +7,6 @@ from selenium.webdriver.common.by import By
 import os
 import time
 
-
-
 def inicializar():
     """
     Inicializa la pagina
@@ -16,19 +14,24 @@ def inicializar():
     Devuelve el objeto webdriver
     """
     driver_path = 'test/chromedriver/chromedriverv83.exe'
-    # driver_path = 'chromedriver/chromedriverv83.exe'
 
     chrome_options = Options()
     chrome_options.add_argument("--start-maximized")
+    try:
+        driver = webdriver.Chrome(chrome_options=chrome_options, executable_path=driver_path)
+    except:
+        driver_path = 'chromedriver/chromedriverv83.exe'
+        driver = webdriver.Chrome(chrome_options=chrome_options, executable_path=driver_path)
 
-    driver = webdriver.Chrome(chrome_options=chrome_options, executable_path=driver_path)
     wait = WebDriverWait(driver, 5) # define el tiempo maximo de espera
 
     driver = reinicia(driver,wait)
 
+    log = open('test/test.log','w')
+
     time.sleep(2)
 
-    return driver,wait
+    return driver,wait,log
 
 def reinicia(driver,wait):
     """"
@@ -68,37 +71,37 @@ def comprueba_graficos(driver,wait):
         raise Exception('Graficos no mostrados')
 
 def main():
-    driver,wait = inicializar() # se abre la pagina de mapas
+    driver,wait,log = inicializar() # se abre la pagina de mapas
     try:
         try:
-            print('Prueba 1: Se selecciona playa sin una fecha')
+            mensaje = 'Prueba 1: Se selecciona playa sin una fecha'
             comprueba_error_fecha_no_introducida(driver,wait)
-            print("OK, slata mensaje de error")
+            mensaje += "\n\tOK, salta mensaje de error"
+            print(mensaje)
+            log.write(mensaje)
         except Exception as e:
-            print("MAL: no salta mensaje de error")
+            mensaje += "\n\tMAL, no salta mensaje de error"
+            print(mensaje)
+            log.write(mensaje)
         try:
             reinicia(driver,wait)
-            print('Prueba 1: Se selecciona playa sin una fecha')
+            mensaje = '\nPrueba 2: Se selecciona playa y fecha'
+            print(mensaje)
             comprueba_graficos(driver,wait)
-            print("OK, aparecen los gráficos")
+            mensaje += "\n\tOK, aparecen los gráficos"
+            print(mensaje)
+            log.write(mensaje)
         except Exception as e:
-            print("MAL: no aparecen los gráficos")
+            mensaje += "\n\MAL, no aparecen los gráficos"
+            print(mensaje)
+            log.write(mensaje)
     except Exception as identifier:
         print(type(identifier))
         print(identifier)
     finally:
-        time.sleep(10)
+        log.close()
+        time.sleep(3)
         driver.close()
     
-    
-
-
 if __name__ == '__main__':
     main()
-
-
-# elem.clear()
-# elem.send_keys("pycon")
-# elem.send_keys(Keys.RETURN)
-# assert "No results found." not in driver.page_source
-# driver.close()

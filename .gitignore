@@ -1,2 +1,5 @@
 env
 __pycache__
+debug.log
+example.log
+geckodriver.log
