@@ -38,6 +38,17 @@
         margin-top: 10px;
     }
 
+    .btn:hover {
+        background-color: red;
+    }
+
+    #fecha{
+        width: 100%;
+        height: 40px;
+        border-radius: 5px;
+        border: solid 1px;
+    }
+
     @media only screen and (max-width: 700px) {
         .row {
             position: relative;
@@ -77,18 +88,15 @@
                                 {% with messages  = get_flashed_messages() %}
                                 {% if messages %}
 
-                                <div class="alert alert-danger" role="alert" name = 'alerta'>
+                                <div class="alert alert-danger" role="alert" name='alerta'>
                                     <span>{{ messages[0] }}</span>
                                 </div>
 
                                 {% endif %}
                                 {% endwith %}
 
-                                <h5 class="gj-datepicker">Elige una fecha:</h5>
-                                <input id="datepicker" width="100%" name='fecha' />
-
                                 <h5>Elige una playa:</h5>
-                                <select class="browser-default custom-select" name='eleccion'>
+                                <select class="browser-default custom-select" style = "border-color: black;" name='eleccion'>
                                     {% if resultados == None %}
                                     <option selected>Ninguna</option>
                                     {% else %}
@@ -99,8 +107,15 @@
                                     <option value={{elemento}}>{{elemento}}</option>
                                     {% endfor %}
                                 </select>
+
+                                <h5 class="gj-datepicker">Elige una fecha:</h5>
+                                <!-- <input id="datepicker" onkeyup="activar_boton()" width="100%" name='fecha' /> -->
+                                <input type="date"  id="fecha" name= 'fecha' value={{fecha}} min="2020-01-01"
+                                    max="2020-12-31">
+
                                 <div class="text-center">
-                                    <button type="submit" name= 'boton_consultar' class="btn btn-primary"
+                                    <button type="submit" name='boton_consultar' class="btn btn-primary "
+                                        id="boton_envia"
                                         style="background-color: goldenrod; border-color: goldenrod; color: black;">Consultar</button>
                                 </div>
                             </form>
@@ -108,32 +123,30 @@
                     </div>
                 </div>
             </div>
+            {% if resultados != None %}
             <div class="row secundaria inferior">
                 <div class="col-sm">
                     <div class="card bg-light">
                         <div class="card-body text-center">
 
-
-                            {% if resultados != None %}
                             <h5>Resultados para las costas de {{nombre}} ({{fecha}}).</h5>
                             <div class="container-fluid border border-dark rounded" id="data-container">
                                 <div id="line-chart" style="height: 90%;"></div>
                             </div>
-                            {% else %}
-                            <h5>Resultados</h5>
-                            {% endif %}
+
                             <br>
-                            {% if resultados != None %}
+
                             <h5>Historico de avistamientos</h5>
 
                             <div class="container-fluid_historico border border-dark rounded" id="data-container">
                                 <div id="line-chart_historico" style="height: 90%;"></div>
                             </div>
-                            {% endif %}
+
                         </div>
                     </div>
                 </div>
             </div>
+            {% endif %}
         </div>
         <div class="col-sm mapa">
 
@@ -207,6 +220,8 @@
             redraw: true
         });
     }
+
+    
 </script>
 
 {% endblock %}

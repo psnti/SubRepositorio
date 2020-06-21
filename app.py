@@ -80,7 +80,7 @@ def paginaMapas():
     folium_map = anade_playas(folium_map, df)
     # elimino libreria en conflicto
     mapa = arregla_mapa(folium_map._repr_html_())
-    return render_template('mapas.html', playas=df.index.values, resultados=None, historico = None, mapa=mapa)
+    return render_template('mapas.html', playas=df.index.values, resultados=None, historico = None, mapa=mapa, fecha = None)
 
 
 def dame_historico(nombre_playa):
