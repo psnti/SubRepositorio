@@ -13,7 +13,7 @@ def inicializar():
 
     Devuelve el objeto webdriver
     """
-    driver_path = 'test/chromedriver/chromedriverv83.exe'
+    driver_path = 'test/chromedriver/chromedriver.exe'
 
     chrome_options = Options()
     chrome_options.add_argument("--start-maximized")
