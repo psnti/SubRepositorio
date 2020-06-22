@@ -42,7 +42,7 @@
         background-color: red;
     }
 
-    #fecha{
+    #fecha {
         width: 100%;
         height: 40px;
         border-radius: 5px;
@@ -96,7 +96,8 @@
                                 {% endwith %}
 
                                 <h5>Elige una playa:</h5>
-                                <select class="browser-default custom-select" style = "border-color: black;" name='eleccion'>
+                                <select class="browser-default custom-select" style="border-color: black;"
+                                    name='eleccion'>
                                     {% if resultados == None %}
                                     <option selected>Ninguna</option>
                                     {% else %}
@@ -110,13 +111,14 @@
 
                                 <h5 class="gj-datepicker">Elige una fecha:</h5>
                                 <!-- <input id="datepicker" onkeyup="activar_boton()" width="100%" name='fecha' /> -->
-                                <input type="date"  id="fecha" name= 'fecha' value={{fecha}} min="2020-01-01"
-                                    max="2020-12-31">
+                                <input type="date" onselect="activaBoton(this.id)" id="fecha" name='fecha'
+                                    value={{fecha}} min="2020-01-01" max="2020-12-31">
 
                                 <div class="text-center">
                                     <button type="submit" name='boton_consultar' class="btn btn-primary "
                                         id="boton_envia"
-                                        style="background-color: goldenrod; border-color: goldenrod; color: black;">Consultar</button>
+                                        style="background-color: goldenrod; border-color: goldenrod; color: black;"
+                                        disabled="disabled">Consultar</button>
                                 </div>
                             </form>
                         </div>
@@ -141,6 +143,9 @@
                             <div class="container-fluid_historico border border-dark rounded" id="data-container">
                                 <div id="line-chart_historico" style="height: 90%;"></div>
                             </div>
+
+                            <button type="submit" name='boton_exportar' class="btn btn-success "
+                                id="boton_exportar"><a  href="{{url_for('descarga_archivo')}}" style="color: white;">Exportar</a> </button>
 
                         </div>
                     </div>
@@ -167,14 +172,20 @@
         lineChart_historico('{{ historico|tojson }}');
 
         $(window).resize(function () {
-
             window.lineChart.redraw();
             window.lineChart_historico.redraw();
         });
     });
 
+    $('#fecha').on('click', function () {
+        let botoncito = document.getElementById("boton_envia");
+        botoncito.disabled = false;
+
+    });
+
+
     function lineChart(x) {
-        console.log(x);
+        // console.log(x);
         var w = JSON.parse(x);
         window.lineChart = Morris.Line({
             element: 'line-chart',
@@ -199,7 +210,7 @@
         });
     }
     function lineChart_historico(x) {
-        console.log(x);
+        // console.log(x);
         var w = JSON.parse(x);
         window.lineChart = Morris.Line({
             element: 'line-chart_historico',
@@ -221,7 +232,7 @@
         });
     }
 
-    
+
 </script>
 
 {% endblock %}

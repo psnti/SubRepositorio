@@ -33,6 +33,11 @@ def paginaPrincipal():
 def paginaContacto():
     return render_template('contacto.html')
 
+@app.route('/descarga_archivo')
+def descarga_archivo():
+    p = "contact.png"
+    return send_from_directory('static/pics',p,as_attachment = True)
+
 
 @app.route('/mapas', methods=['GET', 'POST'])
 def paginaMapas():
@@ -66,10 +71,9 @@ def paginaMapas():
             #resulados
             resultados = genera_resultados(fecha, coordenada)
             playas = df.index.tolist()
-            print(playas)
-            print(type(playas))
+
             playas.insert(0,"Ninguna")
-            print(playas)
+
             return render_template('mapas.html', playas=playas, nombre=var, resultados=resultados, historico=historico, fecha=fecha, mapa=mapa)
 
     # creo mapa en coordenadas
