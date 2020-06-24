@@ -1,4 +1,7 @@
-Prueba 1: Se selecciona playa sin una fecha
-	OK, salta mensaje de error
-Prueba 2: Se selecciona playa y fecha
-	OK, aparecen los gráficos
+
+Caso 1: Mensaje de error si no se introduce fecha
+	Correcto
+Caso 2: Aparecen los graficos correctamente
+	Correcto
+Caso 3: Descarga de archivo generado
+	Correcto

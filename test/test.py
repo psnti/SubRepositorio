@@ -7,101 +7,84 @@ from selenium.webdriver.common.by import By
 import os
 import time
 
-def inicializar():
-    """
-    Inicializa la pagina
+driver_path = 'test/chromedriver/chromedriver.exe'
 
-    Devuelve el objeto webdriver
-    """
-    driver_path = 'test/chromedriver/chromedriver.exe'
+chrome_options = Options()
+chrome_options.add_argument("--start-maximized")
+try:
+    driver = webdriver.Chrome(chrome_options=chrome_options, executable_path=driver_path)
+except:
+    driver_path = 'chromedriver/chromedriverv83.exe'
+    driver = webdriver.Chrome(chrome_options=chrome_options, executable_path=driver_path)
 
-    chrome_options = Options()
-    chrome_options.add_argument("--start-maximized")
-    try:
-        driver = webdriver.Chrome(chrome_options=chrome_options, executable_path=driver_path)
-    except:
-        driver_path = 'chromedriver/chromedriverv83.exe'
-        driver = webdriver.Chrome(chrome_options=chrome_options, executable_path=driver_path)
+wait = WebDriverWait(driver, 60) # define el tiempo maximo de espera
 
-    wait = WebDriverWait(driver, 5) # define el tiempo maximo de espera
+driver.get("https://jellyfish-forecast.herokuapp.com/")
 
-    driver = reinicia(driver,wait)
+assert "Jellyfish" in driver.title
 
-    log = open('test/test.log','w')
+mensaje = ''
 
-    time.sleep(2)
+# voy a pagina inicial del mapa
+boton_mapa = driver.find_element_by_name('Mapas')
+boton_mapa.click()
 
-    return driver,wait,log
 
-def reinicia(driver,wait):
-    """"
-    Vuelve a la pagina de los mapas 
-    """
-    driver.get("https://jellyfish-forecast.herokuapp.com/")
-    assert "Jellyfish" in driver.title
-    boton_mapa = driver.find_element_by_name('Mapas')
-    boton_mapa.click()
-    return driver
-
-#### TEST ####
-def comprueba_error_fecha_no_introducida(driver,wait):
-    """
-    Comprueba que si se introduce una playa sin fecha lanza mensaje de error
-
-    Si no se ha lanzado, lanza una excepcion
-
-    Parametros:
-    driver -- objeto webdriver
-    """    
-    driver.find_element_by_xpath('/html/body/div[1]/div/div[1]/div[1]/div/div/div/form/select/option[5]').click()
-    time.sleep(2)
-    driver.find_element_by_xpath('/html/body/div[1]/div/div[1]/div[1]/div/div/div/form/div[2]/button').click()
-    time.sleep(2)
+## prueba 1 : mensaje error
+print('Caso 1: Mensaje de error si no se introduce fecha')
+mensaje += '\nCaso 1: Mensaje de error si no se introduce fecha'
+wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div/div/div[1]/div/div/div/div/form/select/option[5]')))
+driver.find_element_by_xpath('/html/body/div/div/div[1]/div/div/div/div/form/select/option[5]').click()
+time.sleep(1)
+driver.find_element_by_xpath('//*[@id="fecha"]').click()
+driver.find_element_by_xpath('//*[@id="boton_envia"]').click()
+try:
     wait.until(EC.element_to_be_clickable((By.NAME, 'alerta')))
+    print('\tCorrecto')
+    mensaje += '\n\tCorrecto'
+except Exception as identifier:
+    print('\tFallo')
+    mensaje += '\n\tFallo'
 
-def comprueba_graficos(driver,wait):
-    # wait.until(EC.element_to_be_clickable((By.ID, 'datepicker')))
-    time.sleep(1)
-    driver.find_element_by_id('datepicker').send_keys('06/12/2020')
-    driver.find_element_by_xpath('/html/body/div[1]/div/div[1]/div[1]/div/div/div/form/select/option[5]').click()
-    driver.find_element_by_xpath('/html/body/div[1]/div/div[1]/div[1]/div/div/div/form/div[2]/button').click()
-    try:
-        driver.find_element_by_id('data-container')
-    except Exception as identifier:
-        raise Exception('Graficos no mostrados')
 
-def main():
-    driver,wait,log = inicializar() # se abre la pagina de mapas
-    try:
-        try:
-            mensaje = 'Prueba 1: Se selecciona playa sin una fecha'
-            comprueba_error_fecha_no_introducida(driver,wait)
-            mensaje += "\n\tOK, salta mensaje de error"
-            print(mensaje)
-            log.write(mensaje)
-        except Exception as e:
-            mensaje += "\n\tMAL, no salta mensaje de error"
-            print(mensaje)
-            log.write(mensaje)
-        try:
-            reinicia(driver,wait)
-            mensaje = '\nPrueba 2: Se selecciona playa y fecha'
-            print(mensaje)
-            comprueba_graficos(driver,wait)
-            mensaje += "\n\tOK, aparecen los gráficos"
-            print(mensaje)
-            log.write(mensaje)
-        except Exception as e:
-            mensaje += "\n\MAL, no aparecen los gráficos"
-            print(mensaje)
-            log.write(mensaje)
-    except Exception as identifier:
-        print(type(identifier))
-        print(identifier)
-    finally:
-        log.close()
-        time.sleep(3)
-        driver.close()
-    
-if __name__ == '__main__':
-    main()
+# voy a pagina inicial del mapa
+boton_mapa = driver.find_element_by_name('Mapas')
+boton_mapa.click()
+
+
+## prueba 2: muestra graficos
+print('Caso 2: Aparecen los graficos correctamente')
+mensaje += '\nCaso 2: Aparecen los graficos correctamente'
+wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div/div/div[1]/div/div/div/div/form/select/option[5]')))
+driver.find_element_by_xpath('/html/body/div/div/div[1]/div/div/div/div/form/select/option[5]').click()
+wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="fecha"]')))
+driver.find_element_by_xpath('//*[@id="fecha"]').send_keys('01-01')
+driver.find_element_by_xpath('//*[@id="fecha"]').click()
+wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="boton_envia"]')))
+driver.find_element_by_xpath('//*[@id="boton_envia"]').click()
+try:
+    wait.until(EC.element_to_be_clickable((By.XPATH, '/html/body/div/div/div[1]/div[2]/div/div/div/h5[2]')))
+    print('\tCorrecto')
+    mensaje += '\n\tCorrecto'
+except Exception as identifier:
+    print('\tFallo')
+    mensaje += '\n\tFallo'
+
+
+## prueba 3: exportar archivo
+print('Caso 3: Descarga de archivo generado')
+mensaje += '\nCaso 3: Descarga de archivo generado'
+try:
+    wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="boton_exportar"]/a')))
+    driver.find_element_by_xpath('//*[@id="boton_exportar"]/a').click()
+    print('\tCorrecto')
+    mensaje += '\n\tCorrecto'
+except Exception as identifier:
+    print('\tFallo')
+    mensaje += '\n\tFallo'
+
+driver.close()
+
+log = open('test/test.log','w')
+log.write(mensaje)
+log.close()
