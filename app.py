@@ -90,6 +90,7 @@ def paginaMapas():
 def dame_historico(nombre_playa):
     excel = pd.read_excel('documentos/Datos_Physalia_20171010.xls')
     seleccion = excel.loc[excel['Lugar'] == nombre_playa]
+    seleccion = seleccion.loc[excel['Tipo.Abund'] == 'numero']
     seleccion = seleccion.groupby(['Date']).sum().reset_index()
 
     lista = []
@@ -98,8 +99,6 @@ def dame_historico(nombre_playa):
 
     return lista
     
-
-
 def anade_playas(fol, playas):
     icon_url = 'static/pics/jellyfish.png'
     cluster = MarkerCluster().add_to(fol)
@@ -110,7 +109,6 @@ def anade_playas(fol, playas):
                       icon=folium.Icon(color='red', icon='info-sign'),
                       ).add_to(cluster)
     return fol
-
 
 def borra_mapa():
     try:
