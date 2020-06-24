@@ -96,16 +96,20 @@ def dame_historico(nombre_playa):
     lista = []
     for i in seleccion.iterrows():
         lista.append({'y':(i[1]['Date']).strftime("%Y-%m-%d"),'v':i[1]['Abundancia']})
-
+    print(lista)
     return lista
     
 def anade_playas(fol, playas):
-    icon_url = 'static/pics/jellyfish.png'
     cluster = MarkerCluster().add_to(fol)
+    
     for i in playas.iterrows():
+        print()
+        print(i[1][0])
+        print()
+        #  -i[1][1]],i[0])
         # print('\n{}\n'.format(type(i[1])))
-        folium.Marker([-i[1][0], -i[1][1]],
-                      popup=i[0],
+        folium.Marker([-i[1][1], -i[1][2]],
+                      popup=i[1][0],
                       icon=folium.Icon(color='red', icon='info-sign'),
                       ).add_to(cluster)
     return fol
