@@ -104,12 +104,12 @@ def anade_playas(fol, playas):
     
     for i in playas.iterrows():
         print()
-        print(i[1][0])
+        print(i[0])
         print()
         #  -i[1][1]],i[0])
         # print('\n{}\n'.format(type(i[1])))
         folium.Marker([-i[1][1], -i[1][2]],
-                      popup=i[1][0],
+                      popup=i[0],
                       icon=folium.Icon(color='red', icon='info-sign'),
                       ).add_to(cluster)
     return fol
