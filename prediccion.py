@@ -80,14 +80,15 @@ def dame_datos(latitud,longitud,ds):
     longitud -- longitud
     ds -- dataset del que extraer los valores
     """
-    return ds.sel({'latitude':latitud,'longitude': longitud})
+    return ds.sel({'latitude':latitud,'longitude': longitud},method= 'nearest')
+
 
 def normaliza_min_max(df_atributos):
     """
     Normaliza los datos del dataframe pasado
     """
     X = df_atributos.values.tolist()
-    n = load('normalizador.pkl') 
+    n = load('documentos/normalizador.pkl') 
     x_normalizado_2 = n.transform(X)
     df_norm = pd.DataFrame(x_normalizado_2,columns=list(range(231)))
     return df_norm
@@ -113,7 +114,7 @@ def genera_estructura(f,c):
             l1+=l3
             listado_variables+=(l1)
         dataframe.loc[index] = listado_variables
-    return dataframe
+    return dataframe,fechas
 
 def genera_resultados(fecha, coordenadas):
     # se cogerian los datos de copernicus
