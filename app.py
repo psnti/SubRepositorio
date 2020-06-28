@@ -11,6 +11,7 @@ import sklearn
 from folium.plugins import MarkerCluster
 from datetime import datetime
 import numpy as np
+import prediccion
 
 
 app = Flask(__name__)
@@ -122,11 +123,13 @@ def borra_mapa():
         print('Aun no existe')
 
 
-def genera_resultados(fecha, coodenadas):
+def genera_resultados(fecha, coordenadas):
     # se cogerian los datos de copernicus
     # generar dataframe
     # meterlo al modelo
     modelo = load('static/modelo.joblib')
+    print(fecha,coordenadas)
+    # prediccion.genera_resultados()
     # print(modelo)
 
     lista = [{'y': '2020-1-1', 'v': 1},
