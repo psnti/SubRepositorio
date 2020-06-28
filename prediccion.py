@@ -41,10 +41,10 @@ def busca_archivo(fecha):
     Parametros:
     fecha -- fecha en formato AñoMesDia (20140105)
     """
-    listado_archivos = os.listdir('documentos\copernicus') # Listo todos los archivos de Copernicus
+    listado_archivos = os.listdir('documentos/copernicus') # Listo todos los archivos de Copernicus
     texto ='_{}_'.format(str(fecha).split()[0].replace('-',''))
     archivo = [x for x in listado_archivos if str(texto) in x]
-    data = xr.open_dataset('documentos\copernicus\{}'.format(archivo[0])) # cargo el archivo
+    data = xr.open_dataset('documentos/copernicus/{}'.format(archivo[0])) # cargo el archivo
     return data # devuelvo dataset
 
 def dame_coordenadas(c):
@@ -121,7 +121,7 @@ def genera_resultados(fecha, coordenadas):
     # generar dataframe
     #normalizarlo
     # meterlo al modelo
-    modelo = load('static\modelo.joblib')
+    modelo = load('static/modelo.joblib')
     df,fechas = genera_estructura(fecha,coordenadas)
     df = normaliza_min_max(df)
     salida = modelo.predict(df)

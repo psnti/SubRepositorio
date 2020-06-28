@@ -112,7 +112,7 @@ def genera_resultados(fecha, coordenadas):
     # se cogerian los datos de copernicus
     # generar dataframe
     # meterlo al modelo
-    modelo = load('static/modelo.joblib')
+    # modelo = load('static/modelo.joblib')
     print(fecha,coordenadas)
     lista = prediccion.genera_resultados(fecha, coordenadas)
 
