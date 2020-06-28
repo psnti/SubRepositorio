@@ -129,4 +129,7 @@ def genera_resultados(fecha, coordenadas):
     lista_salida = []
     for avist,date in zip(salida,fechas):
         lista_salida.append({'y':date,'v':int(avist)})
+    print(lista_salida)
+    df_aux = pd.DataFrame(lista_salida)
+    df_aux.to_excel('documentos/resultados.xlsx')
     return lista_salida

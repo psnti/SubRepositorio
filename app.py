@@ -36,8 +36,8 @@ def paginaContacto():
 
 @app.route('/descarga_archivo')
 def descarga_archivo():
-    p = "contact.png"
-    return send_from_directory('static/pics',p,as_attachment = True)
+    p = "resultados.xlsx"
+    return send_from_directory('documentos',p,as_attachment = True)
 
 
 @app.route('/mapas', methods=['GET', 'POST'])
