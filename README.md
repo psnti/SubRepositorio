@@ -1,13 +1,27 @@
-# Web Jellyfish Forecast <img src= "https://github.com/psnti/WebJellyfishForecast/blob/master/static/pics/favicon.png">
-#### TFG - Pablo Santidrian Tudanca
+![header](https://github.com/psnti/Jellyfish_Forecast/blob/master/docs/latex/img/logo.png)
+
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-green)](https://www.python.org/)
 [![made-with-flask](https://img.shields.io/badge/Made%20with-Flask-orange)](https://flask.palletsprojects.com/en/1.1.x/)
 
 Aplicación web del trabajo de fin de grado sobre la predicción de la llegada de medusas a las playas en función de las condiciones climatológicas.
-Repositorio de proyecto: [JellyFish Forecast](https://github.com/psnti/Jellyfish_Forecast)
+Repositorio del proyecto: [JellyFish Forecast](https://github.com/psnti/Jellyfish_Forecast)
 
 Web del proyecto: [JellyFish Forecast](https://jellyfish-forecast.herokuapp.com)<br/>
 
+**Autor:**
+- [Pablo Santidrian Tudanca](www.linkedin.com/in/pablo-santidrian-tudanca)<br>
+
 **Tutores:**
-- Jose Francisco Diez Pastor
-- Alvar Arnaiz Gonzalez
+- [José Francisco Diez Pastor](https://github.com/joseFranciscoDiez)<br>
+- [Alvar Arnaiz Gonzalez](https://github.com/alvarag)
+
+---
+
+**Demostración de funcionamiento**
+
+---
+
+**License**
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://badges.mit-license.org)
+- **[MIT license](http://opensource.org/licenses/mit-license.php)**
+- Copyright (c) 2019 - 2020 Samuel Casal Cantero 
