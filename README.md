@@ -15,14 +15,10 @@ Web del proyecto: [JellyFish Forecast](https://jellyfish-forecast.herokuapp.com)
 - [José Francisco Diez Pastor](https://github.com/joseFranciscoDiez)<br>
 - [Alvar Arnaiz Gonzalez](https://github.com/alvarag)
 
----
-
-**Demostración de funcionamiento**
+# Demostración de funcionamiento 🛠️
 
 [![VideoFuncionamientoWeb](https://i9.ytimg.com/vi/J_LEeupW-w4/mqdefault.jpg?time=1593454703305&sqp=CKTf6PcF&rs=AOn4CLCWTHc3g_KSmiQfweMTlsp9HzZjmw)](https://youtu.be/J_LEeupW-w4)
-
 ---
-
 **License**
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://badges.mit-license.org)
 - **[MIT license](http://opensource.org/licenses/mit-license.php)**
